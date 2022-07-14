@@ -1,0 +1,55 @@
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="moneypipe buffer" />
+<meta name="twitter:description" content="create a group to collect money and let members withdraw their share" />
+<meta name="twitter:image" content="https://buffer.moneypipe.xyz/buffer_poster.png" />
+<meta property="og:url" content="https://buffer.moneypipe.xyz/ethereum" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="moneypipe buffer" />
+<meta property="og:description" content="create a group to collect money and let members withdraw their share" />
+<meta property="og:image" content="https://buffer.moneypipe.xyz/buffer_poster.png" />
+<script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js@3.0.0/dist/web3.min.js"></script>
+<script src="https://unpkg.com/moneypipe/dist/moneypipe.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" rel="stylesheet">
+<link href="/style.css" rel="stylesheet">
+<script>
+var web3 = new Web3(window.ethereum);
+var account
+var buffer = new Moneypipe.buffer({
+  web3: web3,
+  network: "main"
+})
+document.addEventListener("DOMContentLoaded", async () => {
+  try {
+    let groups = await buffer.groups()
+    document.querySelector(".items").innerHTML = groups.map((group) => {
+      return `<a href="group#address=${group.group}">${group.title}</a>`
+    }).join("")
+  } catch (e) {
+    alert(e.message)
+  }
+})
+</script>
+</head>
+<body>
+<nav>
+  <div class='brand'>
+    <a href="https://moneypipe.xyz">moneypipe</a><span class='separator'>.</span><a href="/">buffer</a><span class='separator'>.</span><a href=".">ethereum</a>
+  </div>
+  <div class='subtitle'>create a group to collect money and let members withdraw their share</div>
+  <div>
+    <a class='btn' href="../about">How does it work?</a>
+    <a class='btn' href="https://discord.gg/BZtp5F6QQM"><i class="fa-brands fa-discord"></i> Discord</a>
+    <a class='btn' href="https://twitter.com/skogard"><i class="fa-brands fa-twitter"></i> Twitter</a>
+    <a class='btn' href='https://github.com/moneypipe-org'><i class="fa-brands fa-github"></i> GitHub</a>
+    <a class='btn' href="https://buffer.moneypipe.xyz/ethereum/group#address=0xD6A72cc77FbFb2007BE916505A3C88320eD600C3">Demo</a>
+    <a class='btn reverse' href="new">+ create a group</a>
+  </div>
+</nav>
+<div class='container'>
+  <div class='items'></div>
+</div>
+</body>
+</html>
